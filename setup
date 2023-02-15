@@ -37,7 +37,10 @@ fi
 #checking
 FILES=$(ls /usr/bin/clang*)
 for file in $FILES; do
-    name = $(basename $file -13)
+    name=$(basename $file -13)
+    if [[ "$?" -ne "0" ]] ; then
+        exit 1
+    fi
     update-alternatives --install /usr/local/bin/$name $name $file 20
     if [[ "$?" -ne "0" ]] ; then
         exit 1
