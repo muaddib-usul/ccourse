@@ -1,5 +1,7 @@
 #!/bin/bash
 
+USER=cprogrammer
+
 #updte the database of programs and then ensure installed probrams are up to date
 apt update && apt upgrade -y
 
@@ -8,7 +10,7 @@ apt update && apt upgrade -y
 apt install -y vim-gtk clang\*13\* valgrind kcachegrind
 
 #retrieve the vim configuration files and install them
-wget https://raw.githubusercontent.com/muaddib1971/ccourse/main/vimconfig.zip
+wget https://raw.githubusercontent.com/muaddib-usul/ccourse/main/vimconfig.zip
 if [[ "$?" -ne "0" ]] ; then
 	exit 1
 fi
@@ -26,7 +28,7 @@ if [[ "$?" -ne "0" ]] ; then
 fi
 
 #ensure that the cprogrammer user is the owner
-chown -R cprogrammer: .vim*
+chown -R $USER: .vim*
 if [[ "$?" -ne "0" ]] ; then
     exit 1
 fi
