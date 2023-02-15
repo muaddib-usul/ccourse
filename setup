@@ -1,15 +1,15 @@
 #!/bin/bash
-apt update && apt upgrade
-apt install vim-gtk clang\*13\* valgrind kcachegrind
+apt update && apt upgrade -y
+apt install -y vim-gtk clang\*13\* valgrind kcachegrind
 wget https://raw.githubusercontent.com/muaddib1971/ccourse/main/vimconfig.zip
 if [[ "$?" -ne "0" ]] ; then
 	exit 1
 fi
-unzip vimconfig.zip
+unzip -o vimconfig.zip
 if [[ "$?" -ne "0" ]] ; then
 	exit 1
 fi
-chown -R cprogrammer: .vim
+chown -R cprogrammer: .vim*
 
 FILES=$(ls /usr/bin/clang*)
 
