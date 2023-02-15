@@ -1,15 +1,44 @@
 #!/bin/bash
+
+#updte the database of programs and then ensure installed probrams are up to date
 apt update && apt upgrade -y
+
+#install needed programs: vim, clang (needed for autocomplete and error checking), 
+# valgrind and kcachegrind will be used later for debugging and profiling
 apt install -y vim-gtk clang\*13\* valgrind kcachegrind
+
+#retrieve the vim configuration files and install them
 wget https://raw.githubusercontent.com/muaddib1971/ccourse/main/vimconfig.zip
 if [[ "$?" -ne "0" ]] ; then
 	exit 1
 fi
+
+#remove previous vim config if it exitsts
+rm -rf .vim*
+if [[ "$?" -ne "0" ]] ; then
+    exit 1
+fi
+
+#unpack new config
 unzip -o vimconfig.zip
 if [[ "$?" -ne "0" ]] ; then
 	exit 1
 fi
-chown -R cprogrammer: .vim*
 
+#ensure that the cprogrammer user is the owner
+chown -R cprogrammer: .vim*
+if [[ "$?" -ne "0" ]] ; then
+    exit 1
+fi
+
+#create symbolic links for the files needed for autocomplete and built in code
+#checking
 FILES=$(ls /usr/bin/clang*)
+for file in $FILES; do
+    name = $(basename $file -13)
+    update-alternatives --install /usr/local/bin/$name $name $file 20
+    if [[ "$?" -ne "$0" ]] ; then
+        exit 1
+    fi
+done
 
