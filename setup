@@ -1,3 +1,5 @@
 #!/bin/bash
 apt update && apt upgrade
 apt install vim-gtk clang\*13\* valgrind kcachegrind
+FILES=$(ls /usr/bin/clang*)
+
